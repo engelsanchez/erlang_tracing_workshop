@@ -9,14 +9,14 @@ start() ->
 
 start_loop() ->
     register(ping, self()),
-    pong ! ping,
+    pong ! {ping, lists:seq(1,1000)},
     loop().
 
 loop() ->
     receive
-        pong ->
+        {pong, Msg}->
             timer:sleep(1000),
-            pong ! ping,
+            pong ! {ping, Msg},
             loop();
         stop ->
             pong ! stop,

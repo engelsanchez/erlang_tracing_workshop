@@ -4,9 +4,9 @@
 
 loop() ->
     receive
-        ping ->
+        {ping, Msg} ->
             timer:sleep(1000),
-            ping ! pong,
+            ping ! {pong, Msg},
             loop();
         stop ->
             ok
